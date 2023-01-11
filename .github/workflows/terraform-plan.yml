@@ -17,3 +17,5 @@ jobs:
           export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Terraform init
         run: cd ${{ env.TF_DIR }} && terraform init
+      - name: Terraform plan
+        run: cd ${{ env.TF_DIR }} && terraform plan
