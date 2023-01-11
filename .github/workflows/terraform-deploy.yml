@@ -10,7 +10,6 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Preparing infrastructure
       - name: Terraform init
         run: cd ${{ env.TF_DIR }} && terraform init
       - name: Terraform plan
