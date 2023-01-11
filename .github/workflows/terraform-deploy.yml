@@ -8,9 +8,9 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     runs-on: ubuntu-latest
     steps:
-      - name: Get code
+      - name: 'Get code'
         uses: actions/checkout@v3
-      - name: Terraform init
+      - name: 'Terraform init'
         run: cd ${{ env.TF_DIR }} && terraform init
-      - name: Terraform plan
+      - name: 'Terraform deploy'
         run: cd ${{ env.TF_DIR }} && terraform plan

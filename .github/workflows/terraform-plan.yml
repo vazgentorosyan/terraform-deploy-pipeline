@@ -11,9 +11,15 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     runs-on: ubuntu-latest
     steps:
-      - name: Get code
+      - name: 'Get code'
         uses: actions/checkout@v3
       - name: Terraform init
         run: cd ${{ env.TF_DIR }} && terraform init
-      - name: Terraform plan
-        run: cd ${{ env.TF_DIR }} && terraform plan
+      - name: 'Terraform plan'
+        run: cd ${{ env.TF_DIR }} && terraform plan -out=plan.tfplan
+      - name: 'Upload Artifacts'
+        uses: actions/upload-artifact@v3
+        with:
+          name: terraform-plan-file
+          path: ${{ env.TF_DIR }}/plan.tfplan
+
