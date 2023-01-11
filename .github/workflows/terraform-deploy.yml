@@ -1,10 +1,7 @@
-name: Terraform-plan
-on:
-  push:
-    branches:
-      - main
+name: Terraform-deploy
+on: workflow_dispatch
 jobs:
-  plan:
+  deploy:
     env:
       TF_DIR: terraform/infra
     runs-on: ubuntu-latest
