@@ -12,5 +12,9 @@ jobs:
         uses: actions/checkout@v3
       - name: 'Terraform init'
         run: cd ${{ env.TF_DIR }} && terraform init
+      - name: 'Download artifacts'
+        uses: actions/download-artifact@v3
+        with:
+          name: terraform-plan-file
       - name: 'Terraform deploy'
         run: cd ${{ env.TF_DIR }} && terraform plan
