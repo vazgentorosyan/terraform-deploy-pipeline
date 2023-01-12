@@ -13,15 +13,17 @@ jobs:
     steps:
       - name: 'Get code'
         uses: actions/checkout@v3
-      - name: Terraform init
+      - name: 'Terraform init'
         run: cd ${{ env.TF_DIR }} && terraform init
       - name: 'Terraform plan'
         run: cd ${{ env.TF_DIR }} && terraform plan -out=plan.tfplan
       - name: 'Upload Artifacts'
         uses: actions/upload-artifact@v3
         with:
-          name: terraform-plan-file
-          path: ${{ env.TF_DIR }}/plan.tfplan
+          name: terraform-files
+          path: |
+            ${{ env.TF_DIR }}/plan.tfplan
+            ${{ env.TF_DIR }}/*.lock.hcl
 
   deploy:
     needs:
@@ -36,11 +38,14 @@ jobs:
       - name: 'Get code'
         uses: actions/checkout@v3
       - name: 'Terraform init'
-        run: cd ${{ env.TF_DIR }} && terraform init -backend=false
+        run: cd ${{ env.TF_DIR }} && terraform init
       - name: 'Download artifacts'
         uses: actions/download-artifact@v3
         with:
-          name: terraform-plan-file
+          name: terraform-files
       - name: 'Terraform deploy'
-        run: terraform apply -auto-approve plan.tfplan
-
+        run: |
+          rm ${{ env.TF_DIR }}/.terraform.lock.hcl
+          cp plan.tfplan ${{ env.TF_DIR }}
+          cp .terraform.lock.hcl ${{ env.TF_DIR }}
+          cd ${{ env.TF_DIR }} && terraform apply plan.tfplan
