@@ -30,6 +30,7 @@ jobs:
       - plan
     environment: terraform-deploy
     env:
+      STAGE_ACTION: DEPLOY
       TF_DIR: terraform/infra
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -49,3 +50,4 @@ jobs:
           cp plan.tfplan ${{ env.TF_DIR }}
           cp .terraform.lock.hcl ${{ env.TF_DIR }}
           cd ${{ env.TF_DIR }} && terraform apply plan.tfplan
+
