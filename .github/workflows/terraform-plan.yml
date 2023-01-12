@@ -36,13 +36,11 @@ jobs:
       - name: 'Get code'
         uses: actions/checkout@v3
       - name: 'Terraform init'
-        run: cd ${{ env.TF_DIR }} && terraform init
+        run: cd ${{ env.TF_DIR }} && terraform init -backend=false
       - name: 'Download artifacts'
         uses: actions/download-artifact@v3
         with:
           name: terraform-plan-file
       - name: 'Terraform deploy'
-        run: |
-          cd ${{ env.TF_DIR }}
-          cd ${{ env.GITHUB_WORKSPACE }} && ls -a
+        run: terraform apply -auto-approve plan.tfplan
 
