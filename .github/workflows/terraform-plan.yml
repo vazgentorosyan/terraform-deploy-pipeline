@@ -19,6 +19,8 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
+      - name: 'Show Terraform Version'
+        run: terraform -v
       - name: 'Terraform init'
         run: cd ${{ env.TF_DIR }} && terraform init
       - name: 'Terraform plan'
@@ -47,6 +49,8 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
+      - name: 'Show Terraform Version'
+        run: terraform -v
       - name: 'Terraform init'
         run: cd ${{ env.TF_DIR }} && terraform init
       - name: 'Download artifacts'
