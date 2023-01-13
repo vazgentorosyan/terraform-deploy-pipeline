@@ -1,4 +1,4 @@
-name: Terraform-plan
+name: Terraform-workflow
 on:
   push:
     branches:
@@ -29,6 +29,7 @@ jobs:
         with:
           name: terraform-files
           path: |
+            env:
             ${{ env.TF_DIR }}/plan.tfplan
             ${{ env.TF_DIR }}/*.lock.hcl
   deploy:
