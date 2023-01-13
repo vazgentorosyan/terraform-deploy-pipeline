@@ -21,7 +21,7 @@ jobs:
       - name: 'Show Terraform Version'
         run: terraform -v
       - name: 'Terraform init'
-        run: cd ${{ env.TF_DIR }} && terraform init && env
+        run: cd ${{ env.TF_DIR }} && terraform init
       - name: 'Terraform plan'
         run: cd ${{ env.TF_DIR }} && terraform plan -out=plan.tfplan
       - name: 'Upload Artifacts'
