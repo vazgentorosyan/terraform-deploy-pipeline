@@ -7,7 +7,7 @@ resource "aws_instance" "public_ec2" {
   security_groups = [aws_security_group.public_sg.id]
 
   tags = {
-    Name = upper("${var.product_name}-PUBLIC-EC2")
+    Name = upper("${var.product_name}-PUBLIC-EC2-COOL")
   }
   lifecycle {
     ignore_changes = [security_groups, tags]
