@@ -10,7 +10,7 @@ resource "aws_instance" "public_ec2" {
     Name = upper("${var.product_name}-PUBLIC-EC2")
   }
   lifecycle {
-    ignore_changes = [security_groups, tags]
+    ignore_changes = [security_groups]
   }
 }
 
