@@ -24,6 +24,7 @@ resource "aws_instance" "nat_ec2" {
   tags = {
     Name = upper("${var.product_name}-NAT-EC2")
   }
+
   lifecycle {
     ignore_changes = [security_groups, tags]
   }
