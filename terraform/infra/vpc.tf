@@ -3,7 +3,7 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_eip" "elastic_ip1" {
-    vpc      = true
+  vpc = true
 }
 
 resource "aws_vpc" "vpc" {
@@ -80,7 +80,7 @@ resource "aws_subnet" "NatSubnet" {
 
 resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.elastic_ip1.id
-  subnet_id = aws_subnet.NatSubnet.0.id
+  subnet_id     = aws_subnet.NatSubnet.0.id
   tags = merge({
     Name = "NAT-SUBNET-${upper(aws_subnet.NatSubnet.0.availability_zone)}"
   }, var.tags)
@@ -98,6 +98,9 @@ resource "aws_route" "nat_gw_route" {
   route_table_id         = aws_route_table.nat_rt.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_nat_gateway.nat_gateway.id
+  lifecycle {
+    ignore_changes = [nat_gateway_id, gateway_id]
+  }
 }
 
 resource "aws_route_table_association" "nat_gw_assoc" {

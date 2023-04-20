@@ -27,7 +27,7 @@ resource "aws_instance" "nat_ec2" {
   }
 
   lifecycle {
-    ignore_changes = [security_groups, tags]
+    ignore_changes = [security_groups]
   }
   depends_on = [aws_nat_gateway.nat_gateway]
 }
